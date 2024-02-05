@@ -2,6 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int count_strings(char **array_of_strings) {
+    int count = 0;
+
+    while (array_of_strings[count] != NULL) {
+        count++;
+    }
+
+    return count;
+}
+
 int main(int argc, char **argv)
 {
     char **numbers_as_strings = NULL;
@@ -18,6 +28,7 @@ int main(int argc, char **argv)
     else if(argc == 2)
     {
         numbers_as_strings = ft_split(argv[1], ' ');
+        j = count_strings(numbers_as_strings);
     }
     else
     {
@@ -25,7 +36,9 @@ int main(int argc, char **argv)
         while (argv[i])
         {
             numbers_as_strings[j] = malloc(strlen(argv[i]) + 1);
-            numbers_as_strings[j++] = ft_strdup(argv[i++]);
+            numbers_as_strings[j] = ft_strdup(argv[i]);
+            i++;
+            j++;
         }
     }
     i = 0;
@@ -42,6 +55,7 @@ int main(int argc, char **argv)
         printf("%d\n", numbers[i]);
         i++;
     }
+    i = 0;
     while (i < j)
         free(numbers_as_strings[i++]);
     free(numbers_as_strings);
