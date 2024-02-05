@@ -2,6 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int has_string (long numbers[])
+{
+    int i = 0;
+    int valid = 0;
+
+    while(numbers[i])
+    {
+        if (!(numbers[i] > -2147483648 && numbers[i] < 2147483647))
+            valid = 1;
+        i++;
+    }
+    return valid;
+}
+
 int count_strings(char **array_of_strings) {
     int count = 0;
 
@@ -15,7 +29,7 @@ int count_strings(char **array_of_strings) {
 int main(int argc, char **argv)
 {
     char **numbers_as_strings = NULL;
-    int numbers[argc - 1];
+    long numbers[argc - 1];
     int i;
     int j;
 
@@ -47,12 +61,18 @@ int main(int argc, char **argv)
         numbers[i] = ft_atoi(numbers_as_strings[i]);
         i++;
     }
-    i = 0;
-
+    
     // print numbers
+    i = 0;
     while (i < j)
     {
-        printf("%d\n", numbers[i]);
+        if (has_string(numbers) != 0)
+        {
+            printf("Error parsing numbers");
+            return (1);
+        }
+        else
+            printf("%ld\n", numbers[i]);
         i++;
     }
     i = 0;
