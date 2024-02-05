@@ -2,6 +2,59 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+char *ft_strdup(const char *s);
+
+int main(int argc, char **argv)
+{
+    char **numbers_as_strings = NULL;
+    int *numbers;
+    int i, j;
+
+    // take care of input arguments
+    if (argc < 2)
+    {
+        write(1, "Error\n", 6);
+        return (1);
+    }
+    
+    numbers_as_strings = ft_split(argv[1], ' ');
+    j = 0;
+
+    // count the number of elements in the split array
+    while (numbers_as_strings[j])
+        j++;
+
+    numbers = (int *)malloc(j * sizeof(int));
+
+    // turn strings into numbers
+    i = 0;
+    while (i < j)
+    {
+        numbers[i] = ft_atoi(numbers_as_strings[i]);
+        i++;
+    }
+    i = 0;
+
+    // print numbers
+    while (i < j)
+    {
+        printf("%d\n", numbers[i]);
+        i++;
+    }
+
+    for (i = 0; i < j; i++)
+    {
+        free(numbers_as_strings[i]);
+    }
+    free(numbers_as_strings);
+
+    // Free the dynamically allocated numbers array
+    free(numbers);
+
+    return (0);
+}
+
+
 // struct stackNode {
 //     int data;
 //     struct stackNode* next;
@@ -36,56 +89,3 @@
 // 		current = current->next;
 // 	current->next = new;
 // }
-
-int	main(int argc, char **argv)
-{
-	char	**numbers_as_strings;
-	int		numbers[argc - 1];
-	int		i;
-	int		j;
-	// stack	a;
-	// stack	b; ./a.out 
-
-	i = 1;
-	j = 0;
-	// take care of input arguments
-	if (argc < 2)
-	{
-		write(1, "Error\n", 6);
-		return (1);
-	}
-	else if (argc == 2)
-	{
-		numbers_as_strings = ft_split(argv[i], ' ');
-		while (numbers_as_strings[j] != NULL)
-			j++;
-		i++;
-		numbers_as_strings[j] = NULL;
-	}
-	else
-	{
-		while (j < argc - 1)
-		{
-			numbers_as_strings[j] = *ft_split(argv[i], ' ');
-			j++;
-			i++;
-		}
-		numbers_as_strings[j] = NULL;
-	}
-	// turn strings into numbers
-	i = 0;
-	while (i < j)
-	{
-		numbers[i] = ft_atoi(numbers_as_strings[i]);
-		i++;
-	}
-	i = 0;
-	// print numbers
-	while (i < j)
-	{
-		printf("%d\n", numbers[i]);
-		i++;
-	}
-	free(numbers_as_strings);
-	return (0);
-}
