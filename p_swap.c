@@ -17,7 +17,20 @@ int	has_string(long numbers[])
 	}
 	return (valid);
 }
-
+long has_duplicates(long arr[], int size) {
+    int i = 0;
+    while (i < size - 1) {
+        int j = i + 1;
+        while (j < size) {
+            if (arr[i] == arr[j]) {
+                return 1; // Duplicates found
+            }
+            j++;
+        }
+        i++;
+    }
+    return 0; // No duplicates found
+}
 int	count_strings(char **array_of_strings)
 {
 	int	count;
@@ -43,7 +56,7 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 	{
 		write(1, "Error\n", 6);
-		return (1);
+		exit (1);
 	}
 	else if (argc == 2)
 	{
@@ -71,10 +84,10 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < j)
 	{
-		if (has_string(numbers) != 0)
+		if (has_string(numbers) != 0 || has_duplicates(numbers, j) != 0)
 		{
 			printf("Error parsing numbers");
-			return (1);
+			exit (1);
 		}
 		else
 			printf("%ld\n", numbers[i]);
