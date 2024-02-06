@@ -1,22 +1,24 @@
 #include "push_swap.h"
 #include <stdio.h>
 #include <stdlib.h>
-
-int	has_string(long numbers[])
+#include <limits.h>
+long has_string(long numbers[], int size)
 {
-	int	i;
-	int	valid;
+    int i;
+    int invalid;
 
-	i = 0;
-	valid = 0;
-	while (numbers[i])
-	{
-		if (!(numbers[i] > -2147483648 && numbers[i] < 2147483647))
-			valid = 1;
-		i++;
-	}
-	return (valid);
+    invalid = 0;
+    for (i = 0; i < size; i++)
+    {
+        if (numbers[i] < -2147483648 || numbers[i] > 2147483647)
+        {
+            invalid = 1;
+            break;
+        }
+    }
+    return invalid;
 }
+
 long has_duplicates(long arr[], int size) {
     int i = 0;
     while (i < size - 1) {
@@ -31,6 +33,20 @@ long has_duplicates(long arr[], int size) {
     }
     return 0; // No duplicates found
 }
+
+int hasDuplicates(char* strings[], int length) {
+    for (int i = 0; i < length - 1; i++) {
+        for (int j = i + 1; j < length; j++) {
+            if (ft_strncmp(strings[i], strings[j], length) == 0) {
+                // Found a duplicate
+                return 1;
+            }
+        }
+    }
+    // No duplicates found
+    return 0;
+}
+
 int	count_strings(char **array_of_strings)
 {
 	int	count;
@@ -62,6 +78,12 @@ int	main(int argc, char **argv)
 	{
 		numbers_as_strings = ft_split(argv[1], ' ');
 		j = count_strings(numbers_as_strings);
+		if (hasDuplicates(numbers_as_strings, j) == 1)
+		{
+			printf("DUPLICATES FOUND \n");
+			exit (1);
+
+		}
 	}
 	else
 	{
@@ -80,17 +102,21 @@ int	main(int argc, char **argv)
 		numbers[i] = ft_atoi(numbers_as_strings[i]);
 		i++;
 	}
-	// print numbers
+	if (has_string(numbers, j) == 1)
+	{
+		write(1, "Error: Invalid input\n", 21);
+		exit(1);
+	}
+	if (has_duplicates(numbers, j) == 1)
+	{
+		write(1, "Error: Duplicate numbers found\n", 31);
+		exit(1);
+	}
+	// print numbers	
 	i = 0;
 	while (i < j)
 	{
-		if (has_string(numbers) != 0 || has_duplicates(numbers, j) != 0)
-		{
-			printf("Error parsing numbers");
-			exit (1);
-		}
-		else
-			printf("%ld\n", numbers[i]);
+		printf("%ld\n", numbers[i]);
 		i++;
 	}
 	i = 0;
