@@ -18,10 +18,16 @@ void	no_args(void)
 	exit(1);
 }
 
-void	one_arg(char **argv, char ***numbers_as_strings, int *j)
+void	one_arg(char **argv, char ***numbers_as_strings, int *j, long **numbers)
 {
 	*numbers_as_strings = ft_split(argv[1], ' ');
 	*j = count_strings(*numbers_as_strings);
+    *numbers = (long *)malloc(*j * sizeof(long));
+	if (*numbers == NULL)
+	{
+		write(1, "Error\n", 6);
+		exit (1);
+	}
 }
 
 void	more_args(char **argv, char ***numbers_as_strings, int *i, int *j, long **numbers)
@@ -60,33 +66,34 @@ void	more_args(char **argv, char ***numbers_as_strings, int *i, int *j, long **n
         exit(1);
     }
 }
-int	main(int argc, char **argv)
-{
-	char	**numbers_as_strings;
-	long	*numbers;
-	int		i;
-	int		j;
+	int	main(int argc, char **argv)
+	{
+		char	**numbers_as_strings;
+		long	*numbers;
+		int		i;
+		int		j;
 
-	i = 1;
-	j = 0;
-	if (argc < 2)
-		no_args();
-	else if (argc == 2)
-		one_arg(argv, &numbers_as_strings, &j);
-	else
-        more_args(argv, &numbers_as_strings, &i, &j, &numbers);
-	i = 0;
-	while (i < j)
-    {
-        numbers[i] = ft_atoi(numbers_as_strings[i]);
-        i++;
-    }
-	i = 0;
-	while (i < j)
-		printf("%ld\n", numbers[i++]);
-	i = 0;
-	while (i < j)
-		free(numbers_as_strings[i++]);
-	free(numbers_as_strings);
-	return (0);
-}
+		i = 1;
+		j = 0;
+		if (argc < 2)
+			no_args();
+		else if (argc == 2)
+			one_arg(argv, &numbers_as_strings, &j, &numbers);
+		else
+			more_args(argv, &numbers_as_strings, &i, &j, &numbers);
+		i = 0;
+		while (i < j)
+		{
+			numbers[i] = ft_atoi(numbers_as_strings[i]);
+			i++;
+		}
+		i = 0;
+		while (i < j)
+			printf("%ld\n", numbers[i++]);
+		i = 0;
+		while (i < j)
+			free(numbers_as_strings[i++]);
+		free(numbers_as_strings);
+		free(numbers);
+		return (0);
+	}
