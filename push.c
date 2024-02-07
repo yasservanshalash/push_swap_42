@@ -45,11 +45,11 @@ int	main(int argc, char **argv)
 		numbers_as_strings = (char **)malloc((number_of_numbers + 1)
 				* sizeof(char *));
 		if (numbers_as_strings == NULL)
-        {
-            printf("Error\n");
-            free (numbers_as_strings);
+		{
+			printf("Error\n");
+			free(numbers_as_strings);
 			exit(1);
-        }
+		}
 		i = 1;
 		while (argv[i])
 		{
@@ -67,7 +67,8 @@ int	main(int argc, char **argv)
 		numbers_as_strings[j] = NULL;
 	}
 	i = 0;
-	printf("number_of_numbers: %d\nsplit_count: %d\n j: %d", number_of_numbers, split_count, j);
+	printf("number_of_numbers: %d\nsplit_count: %d\n j: %d", number_of_numbers,
+		split_count, j);
 	numbers = (long *)malloc(number_of_numbers * sizeof(long));
 	while (i < j)
 	{

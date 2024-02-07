@@ -7,4 +7,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+int	ft_atoi(const char *nptr);
+char	**ft_split(const char *s, char delimiter);
+
 #endif
