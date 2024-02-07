@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../push_swap.h"
+
 static int	is_num(char c)
 {
 	if (c >= '0' && c <= '9')
@@ -22,8 +24,11 @@ static long	logic(const char *str, int i, int sign, int number)
 {
 	while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
 		i++;
-	if (str[i] != '-' && str[i] != '+' && is_num(str[i]) == 0)
-		return (-2147483649);
+    if (str[i] != '-' && str[i] != '+' && !is_num(str[i]))
+    {
+        write(2, "Error\n", 6);
+        exit(1);
+    }
 	if (str[i] == '-')
 	{
 		sign = -1;
