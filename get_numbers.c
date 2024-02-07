@@ -34,7 +34,7 @@ void	more_args(char **argv, char ***numbers_as_strings, int *i, int *j, long **n
 	number_of_numbers = 0;
 	k = 0;
 	while (argv[*i])
-		number_of_numbers += count_strings(ft_split(argv[*i++], ' '));
+		number_of_numbers += count_strings(ft_split(argv[(*i)++], ' '));
 	*numbers_as_strings = (char **)malloc((number_of_numbers + 1)
 			* sizeof(char *));
 	if (*numbers_as_strings == NULL)
@@ -46,14 +46,19 @@ void	more_args(char **argv, char ***numbers_as_strings, int *i, int *j, long **n
 	*i = 1;
 	while (argv[*i])
 	{
-		split_result = ft_split(argv[*i++], ' ');
+		split_result = ft_split(argv[(*i)++], ' ');
 		split_count = count_strings(split_result);
 		k = 0;
 		while (k < split_count)
-			*numbers_as_strings[*j++] = ft_strdup(split_result[k++]);
+			(*numbers_as_strings)[(*j)++] = ft_strdup(split_result[k++]);
 	}
-	*numbers_as_strings[*j] = NULL;
+	(*numbers_as_strings)[*j] = NULL;
     *numbers = (long *)malloc(number_of_numbers * sizeof(long));
+		if (*numbers == NULL)
+    {
+        printf("Error\n");
+        exit(1);
+    }
 }
 int	main(int argc, char **argv)
 {
