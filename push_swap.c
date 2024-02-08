@@ -2,90 +2,85 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char *ft_strdup(const char *s);
+int count_strings(char **array_of_strings)
+{
+    int count = 0;
+    while (array_of_strings[count] != NULL)
+    {
+        count++;
+    }
+    return count;
+}
+
+void no_args()
+{
+    write(1, "No arguments provided.\n", 23);
+    exit(1);
+}
+
+void one_arg(char **argv, char ***numbers_as_strings, int *count)
+{
+    *numbers_as_strings = (char **)malloc(sizeof(char *));
+    if (!*numbers_as_strings)
+    {
+        write(1, "Memory allocation failed\n", 25);
+        exit(EXIT_FAILURE);
+    }
+    (*numbers_as_strings)[0] = ft_strdup(argv[1]);
+    *count = 1;
+}
+
+void more_args(char **argv, char ***numbers_as_strings, int argc, int *count)
+{
+    *numbers_as_strings = (char **)malloc(sizeof(char *) * (argc - 1));
+    if (!*numbers_as_strings)
+    {
+        write(1, "Memory allocation failed\n", 25);
+        exit(EXIT_FAILURE);
+    }
+
+    int i = 1;
+    while (i < argc)
+    {
+        (*numbers_as_strings)[i - 1] = ft_strdup(argv[i]);
+        (*count)++;
+        i++;
+    }
+}
+
+void free_numbers_as_strings(char ***numbers_as_strings, int count)
+{
+    int i = 0;
+    while (i < count)
+    {
+        free((*numbers_as_strings)[i]);
+        i++;
+    }
+    free(*numbers_as_strings);
+}
 
 int main(int argc, char **argv)
 {
-    char **numbers_as_strings = NULL;
-    int *numbers;
-    int i, j;
+    char **numbers_as_strings;
+    int count = 0;
 
-    // take care of input arguments
     if (argc < 2)
+        no_args();
+    else if (argc == 2)
+        one_arg(argv, &numbers_as_strings, &count);
+    else
+        more_args(argv, &numbers_as_strings, argc, &count);
+
+    // Print numbers
+    int i = 0;
+    while (i < count)
     {
-        write(1, "Error\n", 6);
-        return (1);
-    }
-    
-    numbers_as_strings = ft_split(argv[1], ' ');
-    j = 0;
-
-    // count the number of elements in the split array
-    while (numbers_as_strings[j])
-        j++;
-
-    numbers = (int *)malloc(j * sizeof(int));
-
-    // turn strings into numbers
-    i = 0;
-    while (i < j)
-    {
-        numbers[i] = ft_atoi(numbers_as_strings[i]);
-        i++;
-    }
-    i = 0;
-
-    // print numbers
-    while (i < j)
-    {
-        printf("%d\n", numbers[i]);
+        printf("%s\n", numbers_as_strings[i]);
         i++;
     }
 
-    for (i = 0; i < j; i++)
-    {
-        free(numbers_as_strings[i]);
-    }
-    free(numbers_as_strings);
+    // Free allocated memory for numbers_as_strings
+    free_numbers_as_strings(&numbers_as_strings, count);
 
-    // Free the dynamically allocated numbers array
-    free(numbers);
-
-    return (0);
+    return 0;
 }
-
-
-// struct stackNode {
-//     int data;
-//     struct stackNode* next;
-// };
-// typedef struct stackNode stack;
-
-// stack	*ft_lstnew(void *content)
-// {
-// 	stack	*list;
-
-// 	list = (stack *)malloc(sizeof(stack));
-// 	if (!list)
-// 		return (NULL);
-// 	list->data = content;
-// 	list->next = NULL;
-// 	return (list);
-// }
-
-// void	ft_lstadd_back(stack **lst, stack *new)
-// {
-// 	stack	*current;
-
-// 	current = *lst;
-// 	if (!new || !lst)
-// 		return ;
-// 	if (*lst == NULL)
-// 	{
-// 		*lst = new;
-// 		return ;
-// 	}
-// 	while (current->next != NULL)
-// 		current = current->next;
-// 	current->next = new;
-// }
