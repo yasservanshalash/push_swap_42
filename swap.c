@@ -9,26 +9,6 @@ int	count_strings(char **array_of_strings)
 		count++;
 	return (count);
 }
-int duplicate_numbers(long *numbers, int size) {
-    int i;
-    int j;
-
-    i = 0;
-    while(i < size)
-    {
-        j = i + 1;
-        while (j < size)
-        {
-            if (numbers[j] == numbers[i])
-            {
-                return 1;
-            }
-            j++;
-        }
-        i++;
-    }
-    return 0;
-}
 
 void	get_numbers(char **numbers_as_strings, long **numbers, int *j)
 {
