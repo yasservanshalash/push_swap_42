@@ -9,6 +9,26 @@ int	count_strings(char **array_of_strings)
 		count++;
 	return (count);
 }
+int duplicate_numbers(long *numbers, int size) {
+    int i;
+    int j;
+
+    i = 0;
+    while(i < size)
+    {
+        j = i + 1;
+        while (j < size)
+        {
+            if (numbers[j] == numbers[i])
+            {
+                return 1;
+            }
+            j++;
+        }
+        i++;
+    }
+    return 0;
+}
 
 void	get_numbers(char **numbers_as_strings, long **numbers, int *j)
 {
@@ -82,8 +102,15 @@ int	main(int argc, char **argv)
 		no_args();
 	else
 		args(argv, &numbers_as_strings, &j, &numbers);
-	printf("numbers as strings: %s", numbers_as_strings);
 	get_numbers(&numbers_as_strings, &numbers, &j);
+	if (duplicate_numbers(numbers, j) == 1)
+	{
+		write(1, "Error\n", 6);
+		exit(1);
+	}
+	i = 0;
+	while (i < j)
+		printf("%ld", numbers[i++]);
 	free(numbers_as_strings);
 	free(numbers);
 	return (0);
