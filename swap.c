@@ -89,7 +89,7 @@ void	args(char **argv, char **numbers_as_strings, int *j, long **numbers)
 	}
 }
 
-int	main(int argc, char **argv)
+long	*return_numbers(int argc, char **argv, int *size)
 {
 	char	*numbers_as_strings;
 	long	*numbers;
@@ -108,10 +108,7 @@ int	main(int argc, char **argv)
 		write(1, "Error\n", 6);
 		exit(1);
 	}
-	i = 0;
-	while (i < j)
-		printf("%ld", numbers[i++]);
 	free(numbers_as_strings);
-	free(numbers);
-	return (0);
+	*size = j;
+	return numbers;
 }

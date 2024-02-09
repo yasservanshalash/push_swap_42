@@ -10,5 +10,6 @@
 
 int	ft_atoi(const char *nptr);
 char	**ft_split(const char *s, char delimiter);
+long	*return_numbers(int argc, char **argv, int *size);
 
 #endif
