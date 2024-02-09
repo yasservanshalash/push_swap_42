@@ -11,6 +11,34 @@ int	count_strings(char **array_of_strings)
 	}
 	return (count);
 }
+void    get_numbers(char **numbers_as_strings, long **numbers)
+{
+    int j;
+    char **split_result;
+    int i = 0;
+    j = 0;
+    split_result = ft_split(*numbers_as_strings, ' ');
+    if (!split_result) {
+        write(1, "Error: Memory allocation failed\n", 32);
+        exit(1);
+    }
+    j = count_strings(split_result);
+    *numbers = (long *)malloc(j * sizeof(long));
+    if (!numbers) {
+        write(1, "Error: Memory allocation failed\n", 32);
+        exit(1);
+    }
+    i = 0;
+    while (i < j)
+    {
+        (*numbers)[i] = ft_atoi(split_result[i]);
+        i++;
+    }
+        i = 0;
+    while (split_result[i])
+        free(split_result[i++]);
+    free(split_result);
+}
 
 void	no_args(void)
 {
@@ -42,8 +70,6 @@ void args(char **argv, char **numbers_as_strings, int *j, long **numbers, int *a
         ft_strlcat(*numbers_as_strings, " ", total_length + 1); // Concatenate space
         i++;
     }
-
-    printf("%s\n", *numbers_as_strings);
 }
 
 
@@ -60,32 +86,7 @@ int	main(int argc, char **argv)
         no_args();
     else
         args(argv, &numbers_as_strings, &j, &numbers, &argc);
-
-    // Split the concatenated string into individual numbers and store them in the 'numbers' array
-    char **split_result = ft_split(numbers_as_strings, ' ');
-    if (!split_result) {
-        write(1, "Error: Memory allocation failed\n", 32);
-        exit(1);
-    }
-
-    j = count_strings(split_result);
-    numbers = (long *)malloc(j * sizeof(long));
-    if (!numbers) {
-        write(1, "Error: Memory allocation failed\n", 32);
-        exit(1);
-    }
-
-    i = 0;
-    while (i < j)
-    {
-        numbers[i] = ft_atoi(split_result[i]);
-        i++;
-    }
-    // Free memory
-    i = 0;
-    while (split_result[i])
-        free(split_result[i++]);
-    free(split_result);
+    get_numbers(&numbers_as_strings, &numbers);
     free(numbers_as_strings);
     free(numbers);
 
