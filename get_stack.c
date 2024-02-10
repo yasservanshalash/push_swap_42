@@ -2,6 +2,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void free_stack(struct s_stack *stack) {
+    if (stack == NULL || stack->head == NULL) {
+        return; // Nothing to free
+    }
+
+    struct s_node *current = stack->head;
+    struct s_node *temp;
+
+    while (current->next != stack->head) {
+        temp = current;
+        current = current->next;
+        free(temp); // Free the current node
+    }
+
+    free(current); // Free the last node
+    stack->head = NULL; // Set the head pointer to NULL to indicate an empty list
+}
+
+
 // Function to create a new Node
 struct s_node	*create_node(long data)
 {
@@ -34,6 +53,7 @@ void	push(struct s_stack *stack, long data)
 		stack->head->prev = new_node;
 		stack->head = new_node;
 	}
+    free(new_node);
 }
 
 // Function to display the elements of the stack

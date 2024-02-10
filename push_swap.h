@@ -30,5 +30,6 @@ struct s_node		*create_node(long data);
 void				push(struct s_stack *stack, long data);
 void				display(struct s_stack *stack);
 struct s_stack		*array_to_stack(long arr[], int size);
+void                free_stack(struct s_stack *stack);
 
 #endif
