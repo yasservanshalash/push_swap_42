@@ -18,6 +18,7 @@ void free_stack(struct s_stack *stack) {
 
     free(current); // Free the last node
     stack->head = NULL; // Set the head pointer to NULL to indicate an empty list
+	free(stack);
 }
 
 
@@ -53,7 +54,6 @@ void	push(struct s_stack *stack, long data)
 		stack->head->prev = new_node;
 		stack->head = new_node;
 	}
-    free(new_node);
 }
 
 // Function to display the elements of the stack
@@ -88,6 +88,8 @@ struct s_stack	*array_to_stack(long arr[], int size)
 	int				i;
 
 	stack = (struct s_stack *)malloc(sizeof(struct s_stack));
+	if (stack == NULL)
+		return (NULL);
 	stack->head = NULL;
 	i = 0;
 	while (i < size)
