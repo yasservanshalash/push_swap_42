@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_atoi.c                                          :+:    :+:            */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                     +:+                    */
 /*   By: yshalash <marvin@42.fr>                      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/04 13:33:29 by yshalash      #+#    #+#                 */
-/*   Updated: 2024/02/05 16:55:58 by yshalash      ########   odam.nl         */
+/*   Updated: 2024/02/10 12:39:31 by yasser           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static long	logic(const char *str, int i, int sign, int number)
 {
 	while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
 		i++;
-    if (str[i] != '-' && str[i] != '+' && !is_num(str[i]))
-    {
-        write(2, "Error\n", 6);
-        exit(1);
-    }
+	if (str[i] != '-' && str[i] != '+' && !is_num(str[i]))
+	{
+		write(2, "Error\n", 6);
+		exit(1);
+	}
 	if (str[i] == '-')
 	{
 		sign = -1;
@@ -51,8 +51,8 @@ static long	logic(const char *str, int i, int sign, int number)
 
 int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	sign;
+	int		i;
+	int		sign;
 	long	number;
 
 	i = 0;

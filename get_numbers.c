@@ -90,5 +90,5 @@ long	*return_numbers(int argc, char **argv, int *size)
 	}
 	free(numbers_as_strings);
 	*size = j;
-	return numbers;
+	return (numbers);
 }
