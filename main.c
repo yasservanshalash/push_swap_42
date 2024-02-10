@@ -5,7 +5,7 @@ int	main(int argc, char **argv)
 {
 	long			*numbers_array;
 	int				size;
-	struct Stack	*a;
+	struct s_stack	*a;
 
 	numbers_array = return_numbers(argc, argv, &size);
 	a = array_to_stack(numbers_array, size);
