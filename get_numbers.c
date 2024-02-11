@@ -30,7 +30,7 @@ void	get_numbers(char **numbers_as_strings, long **numbers, int *j)
 		i++;
 	}
 	i = 0;
-	while (split_result[i])
+	while (split_result[i] != NULL)
 		free(split_result[i++]);
 	free(split_result);
 }

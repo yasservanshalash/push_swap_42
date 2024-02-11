@@ -33,6 +33,7 @@ int main(int argc, char **argv) {
     a = array_to_stack(numbers_array, size);
     b = (s_stack *)malloc(sizeof(s_stack));
 
+	free(numbers_array);
 	// display(a);
 	// display(b);
 	// while (isSortedDesc(a) != 1) 
@@ -54,7 +55,8 @@ int main(int argc, char **argv) {
 	// }
 
     // printf("\nSORTED");
-	free(a);
-	free(b);
+	free(numbers_array);
+	free_stack(a);
+	free_stack(b);
     return 0;
 }
