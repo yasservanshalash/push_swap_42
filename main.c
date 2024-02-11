@@ -3,16 +3,25 @@
 
 
 int lstsize(s_stack *lst) {
-    int i = 0;
-    s_node *current = lst->head; // Start from the head of the stack
-
-    while (current) {
-        i++;
-        current = current->next;
+    if (lst == NULL || lst->head == NULL) {
+        return 0; // Handle empty list case
     }
-    return i;
-}
 
+    int count = 0;
+    s_node *current = lst->head;
+    s_node *start = lst->head; // Store the starting node
+
+    // Traverse the circular linked list
+    while (1) {
+        count++;
+        current = current->next;
+        if (current == start) {
+            break; // Break the loop when we reach the starting node again
+        }
+    }
+
+    return count;
+}
 
 int main(int argc, char **argv) {
     long *numbers_array;
@@ -23,16 +32,7 @@ int main(int argc, char **argv) {
     numbers_array = return_numbers(argc, argv, &size);
     a = array_to_stack(numbers_array, size);
     b = (s_stack *)malloc(sizeof(s_stack));
-	int i = 0;
 
-	s_node *current;
-	current = a->head;
-	while (i < ft_lstsize(a))
-	{
-		printf("%ld", current->data);
-		current = current->next;
-		i++;
-	}
 	// display(a);
 	// display(b);
 	// while (isSortedDesc(a) != 1) 
@@ -54,5 +54,7 @@ int main(int argc, char **argv) {
 	// }
 
     // printf("\nSORTED");
+	free(a);
+	free(b);
     return 0;
 }
