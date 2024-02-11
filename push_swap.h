@@ -31,5 +31,11 @@ void				push(struct s_stack *stack, long data);
 void				display(struct s_stack *stack);
 s_stack				*array_to_stack(long arr[], int size);
 void				free_stack(struct s_stack *stack);
+void				swap(s_stack *stack);
+void push_to(s_stack *stack_to, s_stack *stack_from);
+void				rotate(s_stack *stack);
+void				reverse_rotate(s_stack *stack);
+int is_sorted(s_stack *stack);
+int isSortedDesc(s_stack *stack);
 
 #endif
