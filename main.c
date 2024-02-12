@@ -54,6 +54,21 @@ int main(int argc, char **argv) {
 	// }
 
     // printf("\nSORTED");
+    while(!isSortedDesc(a))
+    {
+        while(lstsize(a) > 0)
+    {
+        push_to(b, a);
+        if (b->head->data > b->head->next->data)
+            swap(b);
+    }
+    while(lstsize(b) > 0)
+    {
+        push_to(a, b);
+    }
+        display(a);
+
+    }
 	free(numbers_array);
 	free_stack(a);
 	free(b);
