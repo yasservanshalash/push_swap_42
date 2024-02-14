@@ -2,24 +2,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void free_stack(s_stack *stack) {
-    if (stack == NULL || stack->head == NULL)
-        return;
+void	free_stack(s_stack *stack)
+{
+	s_node	*current;
+	s_node	*temp;
 
-    s_node *current = stack->head;
-    s_node *temp;
-
-    while (current->next != stack->head) {
-        temp = current;
-        current = current->next;
-        free(temp);
-    }
-
-    free(current); // Free the last node
-    stack->head = NULL;
-    free(stack);   // Free the stack itself
+	if (stack == NULL || stack->head == NULL)
+		return ;
+	current = stack->head;
+	while (current->next != stack->head)
+	{
+		temp = current;
+		current = current->next;
+		free(temp);
+	}
+	free(current); // Free the last node
+	stack->head = NULL;
+	free(stack); // Free the stack itself
 }
-
 
 // Function to create a new Node
 s_node	*create_node(long data)
